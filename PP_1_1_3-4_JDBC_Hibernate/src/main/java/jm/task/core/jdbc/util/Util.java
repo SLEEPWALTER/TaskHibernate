@@ -17,19 +17,18 @@ public class Util {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    private static final SessionFactory sessionFactory = buildSessionFactory();
-    private static SessionFactory buildSessionFactory() {
+    public static SessionFactory buildSessionFactory() {
         try {
             Configuration configuration = new Configuration();
 
             configuration.setProperty("hibernate.connection.driver_class", "com.mysql.cj.jdbc.Driver");
-            configuration.setProperty("hibernate.connection.url", "jdbc:mysql://localhost:3306/test");
-            configuration.setProperty("hibernate.connection.username", "root");
-            configuration.setProperty("hibernate.connection.password", "TypeGirl");
+            configuration.setProperty("hibernate.connection.url", URL);
+            configuration.setProperty("hibernate.connection.username", USER);
+            configuration.setProperty("hibernate.connection.password", PASSWORD);
             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.MySQL8Dialect");
             configuration.setProperty("hibernate.show_sql", "true");
             configuration.setProperty("hibernate.format_sql", "true");
-            configuration.setProperty("hibernate.hbm2ddl.auto", "update");
+
 
             configuration.addAnnotatedClass(User.class);
 
@@ -39,9 +38,6 @@ public class Util {
             System.err.println("Initial SessionFactory creation failed: " + ex);
             throw new ExceptionInInitializerError(ex);
         }
-    }
-    public static SessionFactory getSessionFactory() {
-        return sessionFactory;
     }
 
 }
